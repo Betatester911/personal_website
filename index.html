@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
+    <title id="title">Welcome</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
@@ -13,6 +13,18 @@
 </head>
 
 <body>
+
+        
+    <div class="progress-bar-container" style="display: none;">
+        <div class="progress" role="progressbar"  aria-valuenow="0" aria-valuemin="0"
+            aria-valuemax="100">
+            <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <header class="header sticky-top">
+
+
 
     <div class="nav_content px-2 py-0 custom-nav">
         <nav class="navbar navbar-expand-lg">
@@ -28,16 +40,16 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 top-navs">
                         <li class="nav-item mx-2">
-                            <a class="nav-link active" onclick="changeContent('welcome', this)">Welcome</a>
+                            <a class="nav-link active" id="welcome" onclick="changeContent('welcome')">Welcome</a>
                         </li>
                         <li class=" nav-item mx-2">
-                                <a class="nav-link" onclick="changeContent('resume', this)">Resume</a>
+                                <a class="nav-link" id="resume" onclick="changeContent('resume')">Resume</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link" onclick="changeContent('projects', this)">Projects</a>
+                            <a class="nav-link" id="projects" onclick="changeContent('projects')">Projects</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link" onclick="changeContent('contact', this)">Contact</a>
+                            <a class="nav-link" id="contact" onclick="changeContent('contact')">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -45,12 +57,8 @@
         </nav>
     </div>
 
-    <div class="progress-bar-container" style="display: none;">
-        <div class="progress" role="progressbar"  aria-valuenow="0" aria-valuemin="0"
-            aria-valuemax="100">
-            <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
-        </div>
-    </div>
+
+    </header>
 
 
     <div id="content" class="content">
@@ -66,7 +74,7 @@
         </footer>
     </div> -->
 
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -77,7 +85,7 @@
 
 
     <script defer>
-        function changeContent(file_name, clickedElement) {
+        function changeContent(file_name) {
             $('.progress-bar-container').show();
             $('#progress-bar').css('width', '0%').attr('aria-valuenow', 0);
 
@@ -89,7 +97,9 @@
             });
 
             $(".navbar-nav .nav-link").removeClass("active");
-            $(clickedElement).addClass("active");
+            $(`#${file_name}`).addClass("active");
+
+            $('#title').text(capitalizeFirstLetter(file_name));
         }
 
         $(document).ready(function () {
@@ -117,6 +127,11 @@
         $(document).ajaxError(function () {
             $('.progress-bar-container').fadeOut();
         });
+
+        function capitalizeFirstLetter(str) {
+            if (str.length === 0) return str; // Check if the string is empty
+            return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+        }
     </script>
 
 

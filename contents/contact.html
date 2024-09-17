@@ -1,26 +1,64 @@
 <div class="container py-5">
-    <h1 class="display-4 text-center mb-4">Contact Me</h1>
-    <p class="lead text-center mb-5">Feel free to reach out using the form below. I'll get back to you as soon as possible!</p>
-    
-    <form>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+    <div class="row m-4">
+        <div class="col-md-4 d-flex flex-column justify-content-center">
+            <h1 class="display-4 ">Send Message</h1>
+            <p class="lead mb-5">Feel free to reach out using the form below. I'll get back to you as soon as possible!</p>
+        </div>
+        <div class="col-md-8">
+            <div class="card shadow-lg px-4 py-5 border-0">
+                <form id="contact-form">
+                    <div class="row gy-4">
+                        <input type="hidden" name="to_name" value="Sudip">
+
+                        <div class="col-md-6">
+                            <label for="name-field" class="pb-2 fw-semibold">Full Name</label>
+                            <input type="text" name="from_name" id="name-field" class="form-control border-secondary" placeholder="Enter your name" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="email-field" class="pb-2 fw-semibold">Email Address</label>
+                            <input type="email" class="form-control border-secondary" name="email_id" id="email-field" placeholder="Enter your email" required>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="subject-field" class="pb-2 fw-semibold">Subject</label>
+                            <input type="text" class="form-control border-secondary" name="subject" id="subject-field" placeholder="Enter subject" required>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="message-field" class="pb-2 fw-semibold">Message</label>
+                            <textarea class="form-control border-secondary" name="message" rows="6" id="message-field" placeholder="Type your message here..." required></textarea>
+                        </div>
+
+                        <div class="col-md-12 text-end">
+                            <button type="submit" class="btn btn-primary px-5 py-2">Send Message</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-group col-md-6">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Your Email" required>
-            </div>
         </div>
-        <div class="form-group">
-            <label for="subject">Subject</label>
-            <input type="text" class="form-control" id="subject" placeholder="Subject" required>
-        </div>
-        <div class="form-group">
-            <label for="message">Message</label>
-            <textarea class="form-control" id="message" rows="4" placeholder="Your Message" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Send Message</button>
-    </form>
+    </div>
 </div>
+
+
+<script type="text/javascript" defer>
+    (function() {
+        emailjs.init({
+        publicKey: "95nMaFs2qR_a60gwV",
+        });
+    })();
+
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        emailjs.sendForm('service_4u4adir', 'template_jpdezxr', this)
+            .then(() => {
+                alert('Your message has been sent successfully!');
+                changeContent('welcome');
+            }, (error) => {
+                alert('There was an error sending your message. Please try again later.');
+                console.error('FAILED...', error);
+            });
+    });
+</script>
+
